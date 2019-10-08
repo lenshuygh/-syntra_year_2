@@ -16,7 +16,7 @@ public class Ex04BinarySearch {
                 startIndex = middleIndex;
                 middleIndex = middleIndex + ((endIndex - middleIndex) / 2);
             }
-            if(sortedArrayOfInts[middleIndex] == searchedInt){
+            if (sortedArrayOfInts[middleIndex] == searchedInt) {
                 return middleIndex;
             }
         }
