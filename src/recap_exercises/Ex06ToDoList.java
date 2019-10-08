@@ -83,20 +83,20 @@ public class Ex06ToDoList {
     }
 
     private void editToDoItem(int itemNumber) {
-        if(toDoItemsHashMap.containsKey(itemNumber)) {
+        if (toDoItemsHashMap.containsKey(itemNumber)) {
             displayItem(itemNumber);
             System.out.print("Enter new to do item: ");
-            replaceToDoItem(itemNumber,scanner.nextLine());
+            replaceToDoItem(itemNumber, scanner.nextLine());
         }
 
     }
 
     private void displayItem(int itemNumber) {
-            System.out.println(itemNumber + " - " + toDoItemsHashMap.get(itemNumber));
+        System.out.println(itemNumber + " - " + toDoItemsHashMap.get(itemNumber));
     }
 
     private void replaceToDoItem(int itemNumber, String newToDoItem) {
-        toDoItemsHashMap.replace(itemNumber,newToDoItem);
+        toDoItemsHashMap.replace(itemNumber, newToDoItem);
     }
 
     private String getMenuInput() {
