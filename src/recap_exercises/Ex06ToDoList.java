@@ -1,16 +1,20 @@
 package recap_exercises;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ex06ToDoList {
     private static Map<Integer, String> toDoItemsHashMap = new HashMap<>();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         fillMap();
-        Scanner scanner = new Scanner(System.in);
-        new Ex06ToDoList(scanner);
+        new Ex06ToDoList();
+    }
+
+    public Ex06ToDoList() {
+        while (true) {
+            evaluateEnteredChoice(getMenuInput());
+        }
     }
 
     private static void fillMap() {
@@ -20,34 +24,33 @@ public class Ex06ToDoList {
         toDoItemsHashMap.put(4, "item 4");
     }
 
-    public Ex06ToDoList(Scanner scanner) {
-        evaluateEnteredChoice(getMenuInput(scanner));
-    }
-
     private void evaluateEnteredChoice(String choice) {
         int itemNumber = getDigitFromChoice(choice);
+        if (itemNumber != -1) {
+            choice = choice.split(" ")[0];
+        }
         switch (choice) {
             case "LIST":
                 displayToDoItemsHashMap();
                 break;
             case "ADD":
+                addToDoItem();
                 break;
             case "REMOVE":
+                removeToDoItem(itemNumber);
                 break;
             case "EDIT":
+                editToDoItem(itemNumber);
                 break;
             case "HELP":
                 break;
             case "EXIT":
-                return;
+                System.exit(0);
             default:
                 return;
         }
     }
 
-    private void displayToDoItemsHashMap() {
-        toDoItemsHashMap.forEach((k, v) -> System.out.println(k + " - " + v));
-    }
 
     private int getDigitFromChoice(String choice) {
         if (choice.split(" ").length > 1) {
@@ -56,9 +59,49 @@ public class Ex06ToDoList {
         return -1;
     }
 
-    private String getMenuInput(Scanner scanner) {
+    private void displayToDoItemsHashMap() {
+        System.out.println("---- TODO LIST ------");
+        toDoItemsHashMap.forEach((k, v) -> System.out.println(k + " - " + v));
+        System.out.println("---------------------");
+    }
+
+    private void addToDoItem() {
+        OptionalInt nextKey = toDoItemsHashMap.keySet().stream().mapToInt(i -> i).max();
+        System.out.print("Enter the todo item to add: ");
+        if (nextKey.isPresent()) {
+            toDoItemsHashMap.put(nextKey.getAsInt() + 1, scanner.nextLine());
+        } else {
+            toDoItemsHashMap.put(1, scanner.nextLine());
+        }
+    }
+
+    private void removeToDoItem(int itemNumber) {
+        System.out.println(("itemNumber -> " + itemNumber));
+        if (toDoItemsHashMap.containsKey(itemNumber)) {
+            toDoItemsHashMap.remove(itemNumber);
+        }
+    }
+
+    private void editToDoItem(int itemNumber) {
+        if(toDoItemsHashMap.containsKey(itemNumber)) {
+            displayItem(itemNumber);
+            System.out.print("Enter new to do item: ");
+            replaceToDoItem(itemNumber,scanner.nextLine());
+        }
+
+    }
+
+    private void displayItem(int itemNumber) {
+            System.out.println(itemNumber + " - " + toDoItemsHashMap.get(itemNumber));
+    }
+
+    private void replaceToDoItem(int itemNumber, String newToDoItem) {
+        toDoItemsHashMap.replace(itemNumber,newToDoItem);
+    }
+
+    private String getMenuInput() {
         displayTodoMenu();
-        return getTodoMenuChoice(scanner);
+        return getTodoMenuChoice();
     }
 
     private void displayTodoMenu() {
@@ -70,8 +113,8 @@ public class Ex06ToDoList {
         System.out.println("● exit");
     }
 
-    private String getTodoMenuChoice(Scanner scanner) {
-        System.out.println("Enter choice: ");
+    private String getTodoMenuChoice() {
+        System.out.print("Enter choice: ");
         return scanner.nextLine().toUpperCase();
     }
 }
