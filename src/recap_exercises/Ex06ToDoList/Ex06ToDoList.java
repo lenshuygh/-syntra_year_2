@@ -1,4 +1,4 @@
-package recap_exercises;
+package recap_exercises.Ex06ToDoList;
 
 import java.util.*;
 
