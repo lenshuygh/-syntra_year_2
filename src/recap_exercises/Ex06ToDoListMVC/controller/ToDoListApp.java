@@ -1,4 +1,7 @@
-package recap_exercises.Ex06ToDoList;
+package recap_exercises.Ex06ToDoListMVC.controller;
+
+import recap_exercises.Ex06ToDoListMVC.service.ToDoListServiceImpl;
+import recap_exercises.Ex06ToDoListMVC.view.DisplayText;
 
 import java.util.Scanner;
 
@@ -13,21 +16,8 @@ public class ToDoListApp {
     }
 
     public ToDoListApp() {
-        while (true) {
-            displayMainToDoListMenu();
+            DisplayText.displayMainToDoListMenu();
             getMenuChoice();
-        }
-    }
-
-    private void displayMainToDoListMenu() {
-        System.out.println("● list");
-        System.out.println("● add");
-        System.out.println("● remove <number>");
-        System.out.println("● edit <number>");
-        System.out.println("● help");
-        System.out.println("● exit");
-        System.out.println("-----------------");
-        System.out.print("Enter the action: ");
     }
 
     private void getMenuChoice() {
@@ -55,6 +45,8 @@ public class ToDoListApp {
                 System.exit(0);
                 scanner.close();
         }
+        DisplayText.displayMainToDoListMenu();
+        getMenuChoice();
     }
 
     private int getDigitFromChoice(String choice) {

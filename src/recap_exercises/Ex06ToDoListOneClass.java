@@ -1,17 +1,17 @@
-package recap_exercises.Ex06ToDoList;
+package recap_exercises;
 
 import java.util.*;
 
-public class Ex06ToDoList {
+public class Ex06ToDoListOneClass {
     private static Map<Integer, String> toDoItemsHashMap = new HashMap<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         fillMap();
-        new Ex06ToDoList();
+        new Ex06ToDoListOneClass();
     }
 
-    public Ex06ToDoList() {
+    public Ex06ToDoListOneClass() {
         while (true) {
             evaluateEnteredChoice(getMenuInput());
         }

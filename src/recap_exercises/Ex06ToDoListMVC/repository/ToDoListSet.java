@@ -1,4 +1,9 @@
-package recap_exercises.Ex06ToDoList;
+package recap_exercises.Ex06ToDoListMVC.repository;
+
+
+
+import recap_exercises.Ex06ToDoListMVC.model.Priority;
+import recap_exercises.Ex06ToDoListMVC.model.ToDoListItem;
 
 import java.util.*;
 
