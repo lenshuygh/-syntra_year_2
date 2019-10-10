@@ -14,15 +14,15 @@ public class ToDoListServiceImpl implements ToDoListService {
         scanner = new Scanner(System.in);
     }
 
-    public ToDoListServiceImpl getToDoServiceImpl(){
+    public ToDoListServiceImpl getToDoServiceImpl() {
         return this;
     }
 
     @Override
     public void getAllItems() {
-        if(!ToDoListSet.getToDoListSet().isEmpty()){
+        if (!ToDoListSet.getToDoListSet().isEmpty()) {
             ToDoListSet.getToDoListSet().forEach(DisplayText::displayItem);
-        }else {
+        } else {
             DisplayText.displayNoItems();
         }
     }
@@ -31,17 +31,21 @@ public class ToDoListServiceImpl implements ToDoListService {
     public void addSingleItem() {
         DisplayText.askDescription();
         String description = scanner.nextLine();
-        DisplayText.askPriority();
-
-        Priority priority = Priority.NORMAL;
-        if(!ToDoListSet.isDescriptionPresent(description)) {
-            ToDoListSet.addToDoItem(description,priority);
+        Boolean repeatPriorityQuestion = true;
+        while (repeatPriorityQuestion) {
+            DisplayText.askPriority();
+            String priorityString = scanner.nextLine();
+            Priority priorityValue = MatchPriorityToInput(priorityString);
+            if (!Objects.isNull(priorityValue)) {
+                repeatPriorityQuestion = false;
+                ToDoListSet.addToDoItem(description, priorityValue);
+            }
         }
     }
 
     @Override
     public void removeSingleItem(int todoIdToRemove) {
-        if(ToDoListSet.isIdPresent(todoIdToRemove)){
+        if (ToDoListSet.isIdPresent(todoIdToRemove)) {
             ToDoListSet.removeToDoItemById(todoIdToRemove);
         }
         getAllItems();
@@ -49,7 +53,8 @@ public class ToDoListServiceImpl implements ToDoListService {
 
     @Override
     public void replaceSingleItem(int todoIdToReplace) {
-        if(ToDoListSet.isIdPresent(todoIdToReplace)){
+        if (ToDoListSet.isIdPresent(todoIdToReplace)) {
+            DisplayText.displayItem(ToDoListSet.getToDoItemById(todoIdToReplace));
             DisplayText.askDescription();
             String description = scanner.nextLine();
             Boolean repeatPriorityQuestion = true;
@@ -57,19 +62,20 @@ public class ToDoListServiceImpl implements ToDoListService {
                 DisplayText.askDescription();
                 String priorityString = scanner.nextLine();
                 Priority priorityValue = MatchPriorityToInput(priorityString);
-                if(!Objects.isNull(priorityValue)){
+                if (!Objects.isNull(priorityValue)) {
                     repeatPriorityQuestion = false;
                     ToDoListSet.replaceItem(todoIdToReplace, description, priorityValue);
+                    DisplayText.displayItem(ToDoListSet.getToDoItemById(todoIdToReplace));
                 }
             }
-        }else{
+        } else {
             DisplayText.toDoIdNotFound();
         }
     }
 
     private Priority MatchPriorityToInput(String priority) {
         for (Priority value : Priority.values()) {
-            if(value.toString().equals(priority.toUpperCase())){
+            if (value.toString().equals(priority.toUpperCase())) {
                 return value;
             }
         }
