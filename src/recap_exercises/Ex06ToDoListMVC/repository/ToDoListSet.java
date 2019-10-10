@@ -9,21 +9,17 @@ import java.util.*;
 
 public class ToDoListSet {
 
-    private static Collection<ToDoListItem> toDoListItemCollection;
+    private static List<ToDoListItem> toDoListItemCollection;
 
     static {
         if (Objects.isNull(toDoListItemCollection)) {
-            toDoListItemCollection = new HashSet<>();
+            toDoListItemCollection = new ArrayList<>();
         }
     }
 
     public static Collection<ToDoListItem> getToDoListSet() {
+        Collections.sort(toDoListItemCollection, new SortListByPriority());
         return toDoListItemCollection;
-    }
-
-    public static boolean isDescriptionPresent(String description) {
-        Optional<ToDoListItem> foundToDoListItem = toDoListItemCollection.stream().filter(s -> s.getItemDescription().equals(description)).findFirst();
-        return foundToDoListItem.isPresent();
     }
 
     public static void addToDoItem(String description, Priority priority) {

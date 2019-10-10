@@ -4,6 +4,7 @@ import recap_exercises.Ex06ToDoListMVC.model.Priority;
 import recap_exercises.Ex06ToDoListMVC.repository.ToDoListSet;
 import recap_exercises.Ex06ToDoListMVC.view.DisplayText;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,10 +13,6 @@ public class ToDoListServiceImpl implements ToDoListService {
 
     public ToDoListServiceImpl() {
         scanner = new Scanner(System.in);
-    }
-
-    public ToDoListServiceImpl getToDoServiceImpl() {
-        return this;
     }
 
     @Override
