@@ -9,6 +9,7 @@ public class Ex02PalindromeCheck {
         String wordToCheck = scanner.nextLine();
         if(wordToCheck.length() != 0){
             System.out.println(isStringPalindrome(wordToCheck));
+            System.out.println(isStringPalindromeBetter(wordToCheck));
         }
     }
 
@@ -22,5 +23,9 @@ public class Ex02PalindromeCheck {
             }
         }
         return isPalindrome;
+    }
+
+    private static boolean isStringPalindromeBetter(String wordToCheck){
+        return wordToCheck.equals(new StringBuilder(wordToCheck).reverse().toString());
     }
 }
